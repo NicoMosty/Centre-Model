@@ -7,7 +7,7 @@ models in [yalla](https://github.com/germannp/yalla).
 
 `numba` for paralellisation, [vedo](https://github.com/marcomusy/vedo) for visualisation.
 
-For installall the dependences
+For install all the dependences
 ```bash
 pip install -r requirements.txt
 ```
