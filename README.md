@@ -18,4 +18,5 @@ To initialize the simulation of the fusion of the cell spheroids
 python fusing_spheres.py
 ```
 
-![apical_constriction](https://user-images.githubusercontent.com/32848391/92531113-fcfb5000-f22d-11ea-8340-d71696f342d2.gif)
+![initial](data/Melt/N(30)_RAgg(3.4)_T(20000)/Init.png)
+![final](data/Melt/N(30)_RAgg(3.4)_T(20000)/Final.png)

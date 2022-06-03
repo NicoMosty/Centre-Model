@@ -15,10 +15,10 @@ from vedo import Spheres, interactive
 # Parameters for Simulations
 N = 30
 T_relax = 5000
-T = 30000
-K = 1.5
+T = 20000
+K = 5
 
-R_agg= 3.5
+R_agg= 3.4
 R_cell = 1.0
 r_max = 2.5 * R_cell
 s = 1.8 * R_cell
@@ -32,7 +32,7 @@ os.system("cls")
 
 # Initialise cells
 print("____________INIZIALIZATING____________")
-sep=1
+sep=0.95
 
 print("      Generating both spheres")
 X=sphere(R_agg, N, R_cell,-sep*R_agg,0,0)
