@@ -1,4 +1,5 @@
 numba
 numpy
-vedo
+pyvista
+vtk
 progress.bar
