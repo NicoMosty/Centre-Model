@@ -5,20 +5,18 @@ import numpy as np
 from init.forces import relu_force
 from init.solvers import take_euler_step
 from init.making_sphere import sphere
+from init.plotting_spheres import Plot_Sphere
 
 import os
 from progress.bar import FillingSquaresBar
 
-# Modules for plotting spheres
-from vedo import Spheres, interactive
-
 # Parameters for Simulations
-N = 30
+N = 85
 T_relax = 5000
-T = 20000
+T = 10000
 K = 5
 
-R_agg= 3.4
+R_agg= 5
 R_cell = 1.0
 r_max = 2.5 * R_cell
 s = 1.8 * R_cell
@@ -32,7 +30,7 @@ os.system("cls")
 
 # Initialise cells
 print("____________INIZIALIZATING____________")
-sep=0.95
+sep=0.9
 
 print("      Generating both spheres")
 X=sphere(R_agg, N, R_cell,-sep*R_agg,0,0)
@@ -44,12 +42,12 @@ for t in np.arange(start=0, stop=T_relax, step=dt):
     bar.next()
 bar.finish()
 
-Y=X+[2*sep*R_agg,0,0]
-print('Y=',Y.shape)
-print('X=',X.shape)
+# Plotting Initial Conditions
+Plot_Sphere(R_cell, X, 'data/NoMelt/N({})_RAgg({})_Init.vtk'.format(N,R_agg))
+
 # Joining Spheres
+Y=X+[2*sep*R_agg,0,0]
 X = np.concatenate((X, Y), axis=0)
-print('X=',X.shape)
 
 if MELTING == "yes":
     bar = FillingSquaresBar(max = np.arange(start=0, stop=T, step=dt).size)
@@ -58,7 +56,7 @@ if MELTING == "yes":
     print("Joining Spheres")
     # Plotting Initial Conditions
     os.mkdir('data/Melt/N({})_RAgg({})_T({})'.format(N,R_agg,T))
-    Spheres(X, c='b', r=R_cell).show(axes=1, interactive=0).screenshot('data/Melt/N({})_RAgg({})_T({})/Init.png'.format(N,R_agg,T))
+    Plot_Sphere(R_cell, X, 'data/Melt/N({})_RAgg({})_T({})/Init.vtk'.format(N,R_agg,T).format(N,R_agg))
 
     # Calculation of the time evolution of the system
     for t in np.arange(start=0, stop=T, step=dt):
@@ -66,10 +64,8 @@ if MELTING == "yes":
         bar.next()
     bar.finish()
     # Plotting Final Conditions
-    Spheres(X, c='b', r=R_cell).show(axes=1, interactive=0).screenshot('data/Melt/N({})_RAgg({})_T({})/Final.png'.format(N,R_agg,T))
-    interactive()
+    Plot_Sphere(R_cell, X ,'data/Melt/N({})_RAgg({})/Final.vtk'.format(N,R_agg))
 
 if MELTING != "yes":
     # Plotting Final Conditions
-    Spheres(X, c='b', r=R_cell).show(axes=1, interactive=0).screenshot('data/NoMelt/N({})_RAgg({}).png'.format(N,R_agg))
-    interactive()
+    Plot_Sphere(R_cell, X, 'data/NoMelt/N({})_RAgg({})_Final.vtk'.format(N,R_agg))
